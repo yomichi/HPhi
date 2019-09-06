@@ -25,7 +25,9 @@ sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-la
 kanji-config-updmap-sys ipaex
 sudo pip install sphinx
 
-openssl aes-256-cbc -K $encrypted_aceb1c042ad9_key -iv $encrypted_aceb1c042ad9_iv -in ${ROOTDIR}/.travis_scripts/id_rsa.enc -out ~/.ssh/id_rsa -d
+# openssl aes-256-cbc -K $encrypted_aceb1c042ad9_key -iv $encrypted_aceb1c042ad9_iv -in ${ROOTDIR}/.travis_scripts/id_rsa.enc -out ~/.ssh/id_rsa -d
+
+openssl aes-256-cbc -K $encrypted_e35a135e368d_key -iv $encrypted_e35a135e368d_iv -in ${ROOTDIR}/.travis_scripts/id_rsa.enc -out ~/.ssh/id_rsa -d
 
 chmod 600 ~/.ssh/id_rsa
 echo -e "Host github.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
