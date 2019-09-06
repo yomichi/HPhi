@@ -40,21 +40,41 @@ set +e
 
 git checkout gh-pages
 if [ ${feature_branch} != ${TRAVIS_BRANCH} ]; then
-  mkdir -p $feature_branch
-  cp -r ${ROOTDIR}/dcore_doc/* $feature_branch
-  git add $feature_branch
+  cd ${ROOTDIR}/hphi-doc/manual
+  mkdir -p $feature_branch && cd $feature_branch
+  for lang in ja en; do
+    mkdir -p $lang/html
+    cp -r ${ROOTDIR}/hphi-doc/build/doc/${lang}/source/html $lang
+    git add $lang
+  done
 elif [ "_${TRAVIS_BRANCH}" == "_develop" ]; then
-  mkdir -p develop
-  cp -r ${ROOTDIR}/dcore_doc/* develop
-  git add develop
+  cd ${ROOTDIR}/hphi-doc/manual
+  mkdir -p develop && cd develop
+  for lang in ja en; do
+    mkdir -p $lang/html
+    cp -r ${ROOTDIR}/hphi-doc/build/doc/${lang}/source/html $lang
+    git add $lang
+  done
 elif [ "_${TRAVIS_BRANCH}" == "_master" ]; then
-  mkdir -p master
-  cp -r ${ROOTDIR}/dcore_doc/* master
-  git add master
+  cd ${ROOTDIR}/hphi-doc/manual
+  mkdir -p master && cd master
+  for lang in ja en; do
+    mkdir -p $lang/html
+    cp -r ${ROOTDIR}/hphi-doc/build/doc/${lang}/source/html $lang
+    git add $lang
+  done
 elif [ -n ${TRAVIS_TAG}]; then
   mkdir -p ${TRAVIS_TAG}
-  cp -r ${ROOTDIR}/dcore_doc/* ${TRAVIS_TAG}
+  cp -r ${ROOTDIR}/hphi-doc/* ${TRAVIS_TAG}
   git add ${TRAVIS_TAG}
+
+  cd ${ROOTDIR}/hphi-doc/manual
+  mkdir -p ${TRAVIS_TAG} && cd ${TRAVIS_TAG}
+  for lang in ja en; do
+    mkdir -p $lang/html
+    cp -r ${ROOTDIR}/hphi-doc/build/doc/${lang}/source/html $lang
+    git add $lang
+  done
 else
   echo "The deploy script failed to solve where to install documents. The script has some mistake."
   echo "\$TRAVIS_BRANCH: $TRAVIS_BRANCH"
