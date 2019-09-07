@@ -23,7 +23,7 @@ set -e
 
 sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-lang-japanese texlive-fonts-recommended texlive-fonts-extra latexmk
 kanji-config-updmap-sys ipaex
-sudo pip install sphinx
+sudo pip install sphinx sphinxcontrib.spelling
 
 openssl aes-256-cbc -K $encrypted_e35a135e368d_key -iv $encrypted_e35a135e368d_iv -in ${ROOTDIR}/.travis_scripts/id_rsa.enc -out ~/.ssh/id_rsa -d
 
