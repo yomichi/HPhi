@@ -41,41 +41,13 @@ set +e
 
 git checkout gh-pages
 if [ ${feature_branch} != ${TRAVIS_BRANCH} ]; then
-  cd ${ROOTDIR}/hphi-doc/manual
-  mkdir -p $feature_branch && cd $feature_branch
-  for lang in ja en; do
-    mkdir -p $lang/html
-    cp -r ${ROOTDIR}/hphi-doc/build/doc/${lang}/source/html $lang
-    git add $lang
-  done
+  docdir=${feature_branch}
 elif [ "_${TRAVIS_BRANCH}" == "_develop" ]; then
-  cd ${ROOTDIR}/hphi-doc/manual
-  mkdir -p develop && cd develop
-  for lang in ja en; do
-    mkdir -p $lang/html
-    cp -r ${ROOTDIR}/hphi-doc/build/doc/${lang}/source/html $lang
-    git add $lang
-  done
+  docdir=develop
 elif [ "_${TRAVIS_BRANCH}" == "_master" ]; then
-  cd ${ROOTDIR}/hphi-doc/manual
-  mkdir -p master && cd master
-  for lang in ja en; do
-    mkdir -p $lang/html
-    cp -r ${ROOTDIR}/hphi-doc/build/doc/${lang}/source/html $lang
-    git add $lang
-  done
+  docdir=master
 elif [ -n ${TRAVIS_TAG}]; then
-  mkdir -p ${TRAVIS_TAG}
-  cp -r ${ROOTDIR}/hphi-doc/* ${TRAVIS_TAG}
-  git add ${TRAVIS_TAG}
-
-  cd ${ROOTDIR}/hphi-doc/manual
-  mkdir -p ${TRAVIS_TAG} && cd ${TRAVIS_TAG}
-  for lang in ja en; do
-    mkdir -p $lang/html
-    cp -r ${ROOTDIR}/hphi-doc/build/doc/${lang}/source/html $lang
-    git add $lang
-  done
+  docdir=${TRAVIS_TAG}
 else
   echo "The deploy script failed to solve where to install documents. The script has some mistake."
   echo "\$TRAVIS_BRANCH: $TRAVIS_BRANCH"
@@ -84,6 +56,14 @@ else
   echo "\$feature_branch: $feature_branch"
   exit 1
 fi
+
+cd ${ROOTDIR}/hphi-doc/manual
+mkdir -p $docdir && cd $docdir
+for lang in ja en; do
+  mkdir -p $lang/html
+  cp -r ${ROOTDIR}/hphi-doc/build/doc/${lang}/source/html/* $lang/html
+  git add $lang
+done
 
 git config --global user.email "hphi-dev@issp.u-tokyo.ac.jp"
 git config --global user.name "HPhi"
