@@ -21,6 +21,7 @@ fi
 
 set -e
 
+sudo apt-get install -y enchant
 sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-lang-japanese texlive-fonts-recommended texlive-fonts-extra latexmk
 kanji-config-updmap-sys ipaex
 sudo pip install sphinx sphinxcontrib.spelling
