@@ -23,8 +23,10 @@ set -e
 
 sudo apt-get install -y enchant
 sudo apt-get install -y texlive-latex-recommended texlive-latex-extra texlive-lang-japanese texlive-fonts-recommended texlive-fonts-extra latexmk
+sudo apt-get install -y python3 python3-sphinx
 kanji-config-updmap-sys ipaex
-sudo pip install sphinx sphinxcontrib.spelling
+sudo pip install -U pip
+# sudo pip install sphinx sphinxcontrib.spelling
 
 openssl aes-256-cbc -K $encrypted_87f43018402c_key -iv $encrypted_87f43018402c_iv -in ${ROOTDIR}/.travis_scripts/id_rsa.enc -out ~/.ssh/id_rsa -d
 
